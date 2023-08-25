@@ -1,4 +1,6 @@
 /env
+data/
+
 *.bundle.*
 lib/
 node_modules/
