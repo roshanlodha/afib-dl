@@ -1,0 +1,6 @@
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=lodhar@ccf.org
+#SBATCH --job-name=dicom2nii
+#SBATCH --time=1-00:00:00
+
+srun python CMD BATCH ./dicom2nii.py
