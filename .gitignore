@@ -1,5 +1,6 @@
 /env
 data/
+archive/
 
 *.bundle.*
 lib/
