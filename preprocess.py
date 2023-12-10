@@ -76,17 +76,28 @@ def resize_volume(img):
 
 def process_scan(path):
     """Read and resize volume"""
-    # Read scan
-    volume = read_nifti_file(path)
-    # Normalize
-    volume = normalize(volume)
-    # Resize width, height and depth
-    volume = resize_volume(volume)
-    return volume
+    try:
+        # Read scan
+        volume = read_nifti_file(path)
+        # Normalize
+        volume = normalize(volume)
+        # Resize width, height and depth
+        volume = resize_volume(volume)
+        if volume is None:
+            print(path + " volume is None")
+            raise Exception()
+        else:
+            print(path + " read successfully")
+            return volume
+    except:
+        print(path + " could not be read")
 
 # process scans
-abnormal_scans = np.array([process_scan(path) for path in tqdm(abnormal_scan_paths)]) # consider random.sample(abnormal_scan_paths, n_scans)
-normal_scans = np.array([process_scan(path) for path in tqdm(normal_scan_paths)]) # consider random.sample(normal_scan_paths, n_scans)
+print("reading abnormal scans...") # consider tqdm(random.sample(abnormal_scan_paths, n_scans))
+abnormal_scans = np.array([process_scan(path) for path in abnormal_scan_paths]) 
+
+print("reading normal scans...") # consider tqdm(random.sample(normal_scan_paths, n_scans))
+normal_scans = np.array([process_scan(path) for path in normal_scan_paths])
 
 abnormal_labels = np.array([1 for _ in range(len(abnormal_scans))])
 normal_labels = np.array([0 for _ in range(len(normal_scans))])

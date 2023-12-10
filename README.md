@@ -1,40 +1,13 @@
-# AFib Recurrence Prediction using Transfer Learning (VGG16 and ImageNet)
+# Predicting AF outcomes using 3D deep learning of CT scans
 
-This project utilizes transfer learning techniques with the VGG16 model pre-trained on the ImageNet dataset to predict the recurrence of atrial fibrillation (AFib) based on segmented image files. The segmentation process specifically focuses on the pulmonary veins and heart chambers.
+## Dataset Building
+### DICOM to NifTI
+The input scans are in the DICOM format, and are converted to NifTI images using `dicom2nii.py`. A single DICOM file can contain multiple image slices or volumes within it, each representing different aspects or sequences of medical imaging data. When converting a DICOM file to NIfTI, each of these slices or volumes is extracted and saved as separate NIfTI images. Console output is stored in `data/log/dicom2nii.out`.
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Dataset](#dataset)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Results](#results)
-- [Contributing](#contributing)
-- [License](#license)
+### Best NifTI Selection
+The best NifTI image is defined as the image with the best spacing. `bestnifti.py` selects this image based on a lookup table of previously generated images (`data/vandyniftibest.csv`). Console output is stored in `data/log/bestnifti.out`.
 
-## Introduction
-Atrial fibrillation (AFib) is a common heart condition that causes irregular and often rapid heart rate, leading to various health risks. Early detection and prediction of AFib recurrence can significantly aid in proactive medical interventions. This project aims to leverage the power of transfer learning and deep neural networks to predict AFib recurrence using segmented image files that focus on the pulmonary veins and heart chambers.
+### Preprocessing
+`preprocess.py` reads in the best NifTI images, normalizes it, and resizes them to a consistent size. The processed NifTI images are test-train split based on a clinical outcome (defined in `data/vanderbilt_ct_phenotype_2-14-23.csv`) and are saved to `data.pkl`. 
 
-## Dataset
-The dataset used in this project consists of segmented image files capturing the pulmonary veins and heart chambers. These images are collected from various medical imaging sources and have been manually labeled for AFib recurrence. The dataset is not included in this repository due to privacy and legal restrictions. However, instructions for acquiring and preparing the dataset will be provided in the [Usage](#usage) section.
-
-## Project Structure
-The project follows the following directory structure:
-├── data/
-│ ├── train/
-│ ├── validation/
-│ └── test/
-├── models/
-│ └── vgg16.h5
-├── src/
-│ ├── data_processing.py
-│ ├── model_training.py
-│ └── prediction.py
-├── README.md
-└── requirements.txt
-
-- **data/**: This directory contains the training, validation, and testing sets. Segmented image files should be placed in their respective folders.
-- **models/**: This directory stores the pre-trained VGG16 model file.
-- **src/**: This directory contains the source code files for data processing, model training, and prediction.
-- **README.md**: The file you are currently reading.
-- **requirements.txt**: A file listing the dependencies required to run the project.
+## Modeling
