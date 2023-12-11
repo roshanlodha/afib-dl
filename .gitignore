@@ -1,6 +1,7 @@
 /env
 nifti/
 archive/
+data.pkl
 
 *.bundle.*
 lib/

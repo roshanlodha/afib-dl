@@ -1,8 +1,25 @@
 import pickle
+
+import numpy as np
+import random
+import scipy.ndimage as ndi
+
 import tensorflow as tf
+import keras
+from keras import layers
 
 with open('data.pkl', 'rb') as file:
     dataset_dict = pickle.load(file)
+
+x_train = dataset_dict['x_train']
+#x_train_filtered = np.asarray(list(filter(lambda item: item is not None, x_train))).astype('float32')
+
+y_train = dataset_dict['y_train']
+
+x_val = dataset_dict['x_val']
+#x_val_filtered = np.asarray(list(filter(lambda item: item is not None, x_val))).astype('float32')
+
+y_val = dataset_dict['y_val']
 
 @tf.function
 def rotate(volume):
@@ -85,7 +102,6 @@ def get_model(width=128, height=128, depth=64):
     model = keras.Model(inputs, outputs, name="3dcnn")
     return model
 
-
 # Build model.
 model = get_model(width=128, height=128, depth=64)
 model.summary()
@@ -103,7 +119,7 @@ model.compile(
 
 # Define callbacks.
 checkpoint_cb = keras.callbacks.ModelCheckpoint(
-    "3d_image_classification.h5", save_best_only=True
+    "best_classifier.h5", save_best_only=True
 )
 early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_acc", patience=15)
 
@@ -117,3 +133,16 @@ model.fit(
     verbose=2,
     callbacks=[checkpoint_cb, early_stopping_cb],
 )
+
+fig, ax = plt.subplots(1, 2, figsize=(20, 3))
+ax = ax.ravel()
+
+for i, metric in enumerate(["acc", "loss"]):
+    ax[i].plot(model.history.history[metric])
+    ax[i].plot(model.history.history["val_" + metric])
+    ax[i].set_title("Model {}".format(metric))
+    ax[i].set_xlabel("epochs")
+    ax[i].set_ylabel(metric)
+    ax[i].legend(["train", "val"])
+
+plt.savefig('model_performance.png')

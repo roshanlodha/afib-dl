@@ -94,10 +94,14 @@ def process_scan(path):
 
 # process scans
 print("reading abnormal scans...") # consider tqdm(random.sample(abnormal_scan_paths, n_scans))
-abnormal_scans = np.array([process_scan(path) for path in abnormal_scan_paths]) 
+abnormal_scans = np.array([process_scan(path) for path in abnormal_scan_paths], dtype = "object") 
+print("filtering abnormal scans...")
+abnormal_scans = np.array(list(filter(lambda item: item is not None, abnormal_scans)))
 
 print("reading normal scans...") # consider tqdm(random.sample(normal_scan_paths, n_scans))
-normal_scans = np.array([process_scan(path) for path in normal_scan_paths])
+normal_scans = np.array([process_scan(path) for path in normal_scan_paths], dtype = "object")
+print("filtering normal scans...")
+normal_scans = np.array(list(filter(lambda item: item is not None, normal_scans)))
 
 abnormal_labels = np.array([1 for _ in range(len(abnormal_scans))])
 normal_labels = np.array([0 for _ in range(len(normal_scans))])
