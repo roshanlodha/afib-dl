@@ -12,4 +12,5 @@ The best NifTI image is defined as the image with the best spacing. `bestnifti.p
 
 ## Modeling
 `model.py` trains a model from `data.pkl` and saves the best model (measured by validation accuracy) to `best_classifier.h5`. The model architecture is defined here:
+
 ![plot](./architecture.png)

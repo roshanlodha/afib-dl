@@ -118,7 +118,7 @@ model.compile(
     metrics=["acc"],
 )
 
-plot_model(model, to_file = 'architecture.png')
+plot_model(model, to_file = 'architecture.png', show_shapes = True, show_dtype = True, rankdir = 'LR', show_layer_activations = True, expand_nested = True, show_trainable = True)
 
 # Define callbacks.
 checkpoint_cb = keras.callbacks.ModelCheckpoint(

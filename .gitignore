@@ -141,7 +141,6 @@ ui-tests/playwright-report
 ui-tests/.yarn/*
 ui-tests/.pnp.*
 
-/data/*
 .Rproj.user
 .Rhistory
 .RData
