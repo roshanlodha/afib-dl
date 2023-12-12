@@ -6,18 +6,19 @@ import scipy.ndimage as ndi
 
 import tensorflow as tf
 import keras
+from keras.utils import plot_model
 from keras import layers
+
+import matplotlib.pyplot as plt
 
 with open('data.pkl', 'rb') as file:
     dataset_dict = pickle.load(file)
 
 x_train = dataset_dict['x_train']
-#x_train_filtered = np.asarray(list(filter(lambda item: item is not None, x_train))).astype('float32')
 
 y_train = dataset_dict['y_train']
 
 x_val = dataset_dict['x_val']
-#x_val_filtered = np.asarray(list(filter(lambda item: item is not None, x_val))).astype('float32')
 
 y_val = dataset_dict['y_val']
 
@@ -117,6 +118,8 @@ model.compile(
     metrics=["acc"],
 )
 
+plot_model(model, to_file = 'architecture.png')
+
 # Define callbacks.
 checkpoint_cb = keras.callbacks.ModelCheckpoint(
     "best_classifier.h5", save_best_only=True
@@ -146,3 +149,14 @@ for i, metric in enumerate(["acc", "loss"]):
     ax[i].legend(["train", "val"])
 
 plt.savefig('model_performance.png')
+
+from sklearn.metrics import roc_curve
+from sklearn.metrics import auc
+
+model.load_weights("3d_image_classification.h5")
+
+y_pred = model.predict(x_val).ravel()
+fpr, tpr, thresholds = roc_curve(y_val, y_pred)
+
+best_auc = auc(fpr, tpr)
+print("Best AUC is " + str(best_auc))

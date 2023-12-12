@@ -114,10 +114,10 @@ x_train = np.concatenate((abnormal_scans[:split_point],
                           normal_scans[:split_point]), axis=0)
 y_train = np.concatenate((abnormal_labels[:split_point], 
                           normal_labels[:split_point]), axis=0)
-x_val = np.concatenate((abnormal_scans[split_point:], 
-                        normal_scans[split_point:]), axis=0)
-y_val = np.concatenate((abnormal_labels[split_point:], 
-                        normal_labels[split_point:]), axis=0)
+x_val = np.concatenate((abnormal_scans[split_point:n_scans], 
+                        normal_scans[split_point:n_scans]), axis=0)
+y_val = np.concatenate((abnormal_labels[split_point:n_scans], 
+                        normal_labels[split_point:n_scans]), axis=0)
 print(
     "Number of samples in train and validation are %d and %d."
     % (x_train.shape[0], x_val.shape[0])
