@@ -149,14 +149,3 @@ for i, metric in enumerate(["acc", "loss"]):
     ax[i].legend(["train", "val"])
 
 plt.savefig('model_performance.png')
-
-from sklearn.metrics import roc_curve
-from sklearn.metrics import auc
-
-model.load_weights("3d_image_classification.h5")
-
-y_pred = model.predict(x_val).ravel()
-fpr, tpr, thresholds = roc_curve(y_val, y_pred)
-
-best_auc = auc(fpr, tpr)
-print("Best AUC is " + str(best_auc))

@@ -1,0 +1,124 @@
+2023-12-12 08:42:59.877994: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2023-12-12 08:42:59.880216: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-12 08:42:59.920014: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2023-12-12 08:42:59.920037: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2023-12-12 08:42:59.921423: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2023-12-12 08:42:59.927876: I external/local_tsl/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2023-12-12 08:42:59.928084: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-12-12 08:43:02.143582: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+Model: "3dcnn"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_1 (InputLayer)        [(None, 128, 128, 64, 1   0         
+                             )]                                  
+                                                                 
+ conv3d (Conv3D)             (None, 126, 126, 62, 64   1792      
+                             )                                   
+                                                                 
+ max_pooling3d (MaxPooling3  (None, 63, 63, 31, 64)    0         
+ D)                                                              
+                                                                 
+ batch_normalization (Batch  (None, 63, 63, 31, 64)    256       
+ Normalization)                                                  
+                                                                 
+ conv3d_1 (Conv3D)           (None, 61, 61, 29, 64)    110656    
+                                                                 
+ max_pooling3d_1 (MaxPoolin  (None, 30, 30, 14, 64)    0         
+ g3D)                                                            
+                                                                 
+ batch_normalization_1 (Bat  (None, 30, 30, 14, 64)    256       
+ chNormalization)                                                
+                                                                 
+ conv3d_2 (Conv3D)           (None, 28, 28, 12, 128)   221312    
+                                                                 
+ max_pooling3d_2 (MaxPoolin  (None, 14, 14, 6, 128)    0         
+ g3D)                                                            
+                                                                 
+ batch_normalization_2 (Bat  (None, 14, 14, 6, 128)    512       
+ chNormalization)                                                
+                                                                 
+ conv3d_3 (Conv3D)           (None, 12, 12, 4, 256)    884992    
+                                                                 
+ max_pooling3d_3 (MaxPoolin  (None, 6, 6, 2, 256)      0         
+ g3D)                                                            
+                                                                 
+ batch_normalization_3 (Bat  (None, 6, 6, 2, 256)      1024      
+ chNormalization)                                                
+                                                                 
+ global_average_pooling3d (  (None, 256)               0         
+ GlobalAveragePooling3D)                                         
+                                                                 
+ dense (Dense)               (None, 512)               131584    
+                                                                 
+ dropout (Dropout)           (None, 512)               0         
+                                                                 
+ dense_1 (Dense)             (None, 1)                 513       
+                                                                 
+=================================================================
+Total params: 1352897 (5.16 MB)
+Trainable params: 1351873 (5.16 MB)
+Non-trainable params: 1024 (4.00 KB)
+_________________________________________________________________
+Epoch 1/100
+/home/lodhar/.local/lib/python3.11/site-packages/keras/src/engine/training.py:3103: UserWarning: You are saving your model as an HDF5 file via `model.save()`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')`.
+  saving_api.save_model(
+144/144 - 51s - loss: 0.7403 - acc: 0.4792 - val_loss: 0.7005 - val_acc: 0.5210 - 51s/epoch - 357ms/step
+Epoch 2/100
+144/144 - 51s - loss: 0.7144 - acc: 0.5486 - val_loss: 0.7982 - val_acc: 0.5210 - 51s/epoch - 355ms/step
+Epoch 3/100
+144/144 - 48s - loss: 0.6981 - acc: 0.5451 - val_loss: 0.7623 - val_acc: 0.5042 - 48s/epoch - 332ms/step
+Epoch 4/100
+144/144 - 47s - loss: 0.7050 - acc: 0.5069 - val_loss: 0.8268 - val_acc: 0.4874 - 47s/epoch - 327ms/step
+Epoch 5/100
+144/144 - 47s - loss: 0.7064 - acc: 0.4965 - val_loss: 0.7479 - val_acc: 0.4790 - 47s/epoch - 329ms/step
+Epoch 6/100
+144/144 - 46s - loss: 0.6799 - acc: 0.5486 - val_loss: 0.7332 - val_acc: 0.4622 - 46s/epoch - 322ms/step
+Epoch 7/100
+144/144 - 45s - loss: 0.6934 - acc: 0.5625 - val_loss: 0.7202 - val_acc: 0.6387 - 45s/epoch - 316ms/step
+Epoch 8/100
+144/144 - 46s - loss: 0.6870 - acc: 0.5521 - val_loss: 0.7882 - val_acc: 0.5126 - 46s/epoch - 318ms/step
+Epoch 9/100
+144/144 - 45s - loss: 0.6899 - acc: 0.5556 - val_loss: 0.7137 - val_acc: 0.5378 - 45s/epoch - 316ms/step
+Epoch 10/100
+144/144 - 45s - loss: 0.6789 - acc: 0.6076 - val_loss: 0.7141 - val_acc: 0.5042 - 45s/epoch - 314ms/step
+Epoch 11/100
+144/144 - 46s - loss: 0.6887 - acc: 0.5521 - val_loss: 0.6890 - val_acc: 0.5126 - 46s/epoch - 319ms/step
+Epoch 12/100
+144/144 - 46s - loss: 0.6774 - acc: 0.5729 - val_loss: 0.8040 - val_acc: 0.5294 - 46s/epoch - 322ms/step
+Epoch 13/100
+144/144 - 45s - loss: 0.6885 - acc: 0.5556 - val_loss: 0.7228 - val_acc: 0.5378 - 45s/epoch - 314ms/step
+Epoch 14/100
+144/144 - 46s - loss: 0.6647 - acc: 0.5903 - val_loss: 1.1614 - val_acc: 0.4874 - 46s/epoch - 319ms/step
+Epoch 15/100
+144/144 - 45s - loss: 0.6663 - acc: 0.5868 - val_loss: 0.6971 - val_acc: 0.5462 - 45s/epoch - 311ms/step
+Epoch 16/100
+144/144 - 44s - loss: 0.6491 - acc: 0.6597 - val_loss: 0.6719 - val_acc: 0.6050 - 44s/epoch - 309ms/step
+Epoch 17/100
+144/144 - 45s - loss: 0.6549 - acc: 0.6076 - val_loss: 0.7153 - val_acc: 0.5714 - 45s/epoch - 312ms/step
+Epoch 18/100
+144/144 - 45s - loss: 0.6607 - acc: 0.5694 - val_loss: 0.6916 - val_acc: 0.4958 - 45s/epoch - 311ms/step
+Epoch 19/100
+144/144 - 45s - loss: 0.6852 - acc: 0.5729 - val_loss: 2.4049 - val_acc: 0.4790 - 45s/epoch - 311ms/step
+Epoch 20/100
+144/144 - 45s - loss: 0.6640 - acc: 0.6111 - val_loss: 0.6594 - val_acc: 0.6218 - 45s/epoch - 314ms/step
+Epoch 21/100
+144/144 - 45s - loss: 0.6497 - acc: 0.6076 - val_loss: 0.9368 - val_acc: 0.4958 - 45s/epoch - 312ms/step
+Epoch 22/100
+144/144 - 45s - loss: 0.6604 - acc: 0.6111 - val_loss: 0.8240 - val_acc: 0.5714 - 45s/epoch - 313ms/step
+Traceback (most recent call last):
+  File "/home/lodhar/afib-dl/model.py", line 156, in <module>
+    model.load_weights("3d_image_classification.h5")
+  File "/home/lodhar/.local/lib/python3.11/site-packages/keras/src/utils/traceback_utils.py", line 70, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/lodhar/.local/lib/python3.11/site-packages/h5py/_hl/files.py", line 562, in __init__
+    fid = make_fid(name, mode, userblock_size, fapl, fcpl, swmr=swmr)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lodhar/.local/lib/python3.11/site-packages/h5py/_hl/files.py", line 235, in make_fid
+    fid = h5f.open(name, flags, fapl=fapl)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5f.pyx", line 102, in h5py.h5f.open
+FileNotFoundError: [Errno 2] Unable to synchronously open file (unable to open file: name = '3d_image_classification.h5', errno = 2, error message = 'No such file or directory', flags = 0, o_flags = 0)
