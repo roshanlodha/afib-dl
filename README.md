@@ -10,6 +10,10 @@ The best NifTI image is defined as the image with the best spacing. `bestnifti.p
 ### Preprocessing
 `preprocess.py` reads in the best NifTI images, normalizes it, and resizes them to a consistent size. The processed NifTI images are test-train split based on a clinical outcome (defined in `data/vanderbilt_ct_phenotype_2-14-23.csv`) and are saved to `data.pkl`. 
 
+The remaining training and validation set after preprocessing is shown here:
+
+![samples](./figs/samples.png)
+
 ## Modeling
 `model.py` trains a model from `data.pkl` and saves the best model (measured by validation accuracy) to `best_classifier.h5`. The model architecture is defined here:
 
