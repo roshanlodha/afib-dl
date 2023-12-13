@@ -118,13 +118,13 @@ model.compile(
     metrics=["acc"],
 )
 
-plot_model(model, to_file = 'architecture.png', show_shapes = True, show_dtype = True, rankdir = 'LR', show_layer_activations = True, expand_nested = True, show_trainable = True)
+plot_model(model, to_file = 'figs/architecture.png', show_shapes = True, show_dtype = True, rankdir = 'LR', show_layer_activations = True, expand_nested = True, show_trainable = True)
 
 # Define callbacks.
 checkpoint_cb = keras.callbacks.ModelCheckpoint(
     "best_classifier.h5", save_best_only=True
 )
-early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_acc", patience=15)
+early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_acc", patience=25)
 
 # Train the model, doing validation at the end of each epoch
 epochs = 100
@@ -148,4 +148,4 @@ for i, metric in enumerate(["acc", "loss"]):
     ax[i].set_ylabel(metric)
     ax[i].legend(["train", "val"])
 
-plt.savefig('model_performance.png')
+plt.savefig('./figs/performance.png')

@@ -39,6 +39,7 @@ gast==0.5.4
 google-auth==2.23.4
 google-auth-oauthlib==1.1.0
 google-pasta==0.2.0
+graphviz==0.20.1
 grpcio==1.59.3
 h5py==3.10.0
 idna==3.4
@@ -110,6 +111,7 @@ pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
 pydicom==2.4.3
+pydot==1.4.2
 Pygments==2.16.1
 PyJWT==2.8.0
 pyparsing==3.1.1
