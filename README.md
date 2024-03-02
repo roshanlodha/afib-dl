@@ -26,7 +26,7 @@ Training was stopped when there was no improvement in validation accuracy over 2
 ### Model Performance
 `performance.py` create a ROC curve of the best classifier (chosen in `model.py`). The performance of the best model is plotted below:
 
-![AUC](./figs/AUC.png)
+![valAUC](./figs/valAUC.png)
 
 ## Clinical Modeling
 `clinicalclassifier.py` predicts AF recurrence based on clinical parameters such as history of OSA as well as echo parameters such as LVEF. The performance of a clinical only model is plotted below:
