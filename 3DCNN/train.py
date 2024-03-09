@@ -11,7 +11,7 @@ from keras import layers
 
 import matplotlib.pyplot as plt
 
-with open('data.pkl', 'rb') as file:
+with open('/home/lodhar/afib-dl/data/processed/train_data.pkl', 'rb') as file:
     dataset_dict = pickle.load(file)
 
 x_train = dataset_dict['x_train']
@@ -118,7 +118,7 @@ model.compile(
     metrics=["acc"],
 )
 
-plot_model(model, to_file = 'figs/architecture.png', show_shapes = True, show_dtype = True, rankdir = 'LR', show_layer_activations = True, expand_nested = True, show_trainable = True)
+plot_model(model, to_file = '/home/lodhar/afib-dl/figs/architecture.png', show_shapes = True, show_dtype = True, rankdir = 'LR', show_layer_activations = True, expand_nested = True, show_trainable = True)
 
 # Define callbacks.
 checkpoint_cb = keras.callbacks.ModelCheckpoint(
@@ -148,4 +148,4 @@ for i, metric in enumerate(["acc", "loss"]):
     ax[i].set_ylabel(metric)
     ax[i].legend(["train", "val"])
 
-plt.savefig('./figs/performance.png')
+plt.savefig('/home/lodhar/afib-dl/figs/training.png')

@@ -17,8 +17,8 @@ import nibabel as nib
 import nilearn as nil
 
 # load samples
-vandy = pd.read_csv("./data/vanderbilt_ct_phenotype_2-14-23.csv")
-vandy['best_nii_dir'] = 'nifti/vandy/' + vandy['study_id'].astype(str) + '.nii.gz'
+vandy = pd.read_csv("/home/lodhar/afib-dl/data/vanderbilt_ct_phenotype_2-14-23.csv")
+vandy['best_nii_dir'] = '/home/lodhar/afib-dl/nifti/vandy/' + vandy['study_id'].astype(str) + '.nii.gz'
 vandy['exists'] = vandy.apply(lambda row: os.path.isfile(row['best_nii_dir']), axis = 1)
 vandy['exists'].value_counts()
 
@@ -95,11 +95,13 @@ def process_scan(path):
 # process scans
 print("reading abnormal scans...") # consider tqdm(random.sample(abnormal_scan_paths, n_scans))
 abnormal_scans = np.array([process_scan(path) for path in abnormal_scan_paths], dtype = "object") 
+non_filtered_abnormal_paths = [path for path, scan in zip(abnormal_scan_paths, abnormal_scans) if scan is not None]
 print("filtering abnormal scans...")
 abnormal_scans = np.array(list(filter(lambda item: item is not None, abnormal_scans)))
 
 print("reading normal scans...") # consider tqdm(random.sample(normal_scan_paths, n_scans))
 normal_scans = np.array([process_scan(path) for path in normal_scan_paths], dtype = "object")
+non_filtered_normal_paths = [path for path, scan in zip(normal_scan_paths, normal_scans) if scan is not None]
 print("filtering normal scans...")
 normal_scans = np.array(list(filter(lambda item: item is not None, normal_scans)))
 
@@ -123,8 +125,16 @@ print(
     % (x_train.shape[0], x_val.shape[0])
 )
 
+# Concatenate abnormal and normal paths included in x_train
+training_dir = non_filtered_abnormal_paths[:split_point] + non_filtered_normal_paths[:split_point]
+
+# Write the paths to a text file
+with open("/home/lodhar/afib-dl/data/vandy_training_dir.txt", "w") as file:
+    for path in training_dir:
+        file.write(path + "\n")
+
 # save data for downstream ML use
 dataset_dict = {"x_train": x_train, "x_val": x_val, "y_train": y_train, "y_val": y_val}
 
-with open('data.pkl', 'wb') as file:
+with open('/home/lodhar/afib-dl/data/processed/train_data.pkl', 'wb') as file:
     pickle.dump(dataset_dict, file)

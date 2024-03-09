@@ -11,7 +11,7 @@ from keras import layers
 
 import matplotlib.pyplot as plt
 
-with open('data.pkl', 'rb') as file:
+with open('/home/lodhar/afib-dl/data/processed/train_data.pkl', 'rb') as file:
     dataset_dict = pickle.load(file)
 
 x_train = dataset_dict['x_train']
@@ -112,4 +112,4 @@ plt.title("Best Model AUC")
 plt.xlabel("FPR")
 plt.ylabel("TPR")
 plt.text(0.6, 0, 'AUC = %s' %(best_auc))
-plt.savefig("./figs/AUC.png")
+plt.savefig("/home/lodhar/afib-dl/figs/AUC.png")
