@@ -99,7 +99,7 @@ def get_model(width=128, height=128, depth=64):
 model = get_model(width=128, height=128, depth=64)
 model.summary()
 
-model.load_weights("best_classifier.h5")
+model.load_weights("/home/lodhar/afib-dl/3DCNN/best_classifier.h5")
 
 from sklearn import metrics
 

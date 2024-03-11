@@ -118,13 +118,17 @@ model.compile(
     metrics=["acc"],
 )
 
-plot_model(model, to_file = '/home/lodhar/afib-dl/figs/architecture.png', show_shapes = True, show_dtype = True, rankdir = 'LR', show_layer_activations = True, expand_nested = True, show_trainable = True)
+plot_model(model, to_file = '/home/lodhar/afib-dl/figs/architecture.png', show_shapes = True, show_dtype = False, show_layer_names = False, rankdir = 'TB', show_layer_activations = True, expand_nested = True, show_trainable = False)
 
 # Define callbacks.
 checkpoint_cb = keras.callbacks.ModelCheckpoint(
-    "best_classifier.h5", save_best_only=True
+    "best_classifier.h5", 
+    monitor = 'val_acc',
+    mode = 'max',
+    save_best_only=True,
+    initial_value_threshold=0.63
 )
-early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_acc", patience=25)
+early_stopping_cb = keras.callbacks.EarlyStopping(monitor="val_loss", patience=25)
 
 # Train the model, doing validation at the end of each epoch
 epochs = 100
